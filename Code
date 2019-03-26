@@ -1,0 +1,194 @@
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+import numpy as np
+from math import *
+####################### Initial ##################################
+
+def myInit():
+    glEnable(GL_DEPTH_TEST)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(70,1,0.1,60)
+    gluLookAt(8,9,10,
+              2,1,1,
+              0,1,0)
+    glClearColor(1, 1, 1, 1)
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+
+######################## Circle #######################################
+
+def draw_circle(r=float(0.5),n=2,x1=float(0),y1=float(0),z=float(0)):
+    glLoadIdentity()
+    glBegin(GL_POLYGON)
+    for theta in np.arange(0, n * pi, 0.1):
+        #glColor3f(1-theta/(2*pi),theta/(2*pi),1-theta/(2*pi))
+        x = r * sin(theta)
+        y = r * cos(theta)
+        glVertex(x + x1,  y+ y1,z)
+
+    glEnd()
+
+####################### Line ####################################
+def draw_Line(q,w,e,t,i,u):
+    glLoadIdentity()
+    glBegin(GL_LINES)
+    glVertex(q,w,e)
+    glVertex(t,i,u)
+    glEnd()
+####################### polygon4 ################################
+
+def draw_polygon4(a,b,c,d,e,f,g,h,i,j,k,l):
+    glLoadIdentity()
+    glBegin(GL_POLYGON)
+    glVertex(a,b,c)
+    glVertex(d,e,f)
+    glVertex(g,h,i)
+    glVertex(j,k,l)
+    glEnd()
+
+###################### Display ############################
+
+angle=0
+x=0
+forward=True
+def display():
+    global x
+    global angle
+    global forward
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glMatrixMode(GL_MODELVIEW)
+############################# Sky with Sun ########################
+    glColor3f(0.3,0.5,1)
+    draw_polygon4(-90,0,-20,20,0,-20,20, 20, -20,-90, 20, -20)
+    glColor3f(0.9,0.3,0)
+    draw_circle(1.5, 2, 7, 8.5, -5)
+########################### Grean Area ########################
+    glColor3f(0.1,0.9,0.3)
+    draw_polygon4(-90,0,-3,20,0,-3,20, 0, -20,-90, 0, -20)
+    draw_polygon4(-50,0,5,20,0,5,20, 0, 22,-50, 0, 22)
+########################### Side  #######################################
+    glColor3f(0,0,0)
+    draw_Line(-50,1.0011,-1.5,20,1.002,-1.5)
+    draw_Line(-50, 1.0011, -2.5, 20, 1.002, -2.5)
+    draw_Line(-50, 1.0011, 5, 20, 1.002, 5)
+    draw_Line(-50, 1.0011, 6, 20, 1.002, 6)
+    draw_polygon4(-50, 1, -1.5, 20, 1, -1.5, 20, 1, -2.5, -50, 1, -2.5)
+    draw_polygon4(-50, 1, 5, 20, 1, 5, 20, 1, 6, -50, 1, 6)
+    #####################################################################################
+    glColor3f(1,1,1)
+    draw_polygon4(-2,1.001,-1.5, 0,1.001,-1.5, 0, 1.001,-2.5, -2, 1.001, -2.5)
+    draw_polygon4(1,1.001,-1.5, 3,1.001,-1.5, 3, 1.001,-2.5, 1, 1.001, -2.5)
+    draw_polygon4(4, 1.001, -1.5, 6, 1.001, -1.5, 6, 1.001, -2.5, 4, 1.001, -2.5)
+    draw_polygon4(7, 1.001, -1.5, 9, 1.001, -1.5, 9, 1.001, -2.5, 7, 1.001, -2.5)
+    draw_polygon4(-5, 1.001, -1.5, -3, 1.001, -1.5, -3, 1.001, -2.5, -5, 1.001, -2.5)
+    draw_polygon4(-8, 1.001, -1.5, -6, 1.001, -1.5, -6, 1.001, -2.5, -8, 1.001, -2.5)
+    draw_polygon4(-11, 1.001, -1.5, -9, 1.001, -1.5, -9, 1.001, -2.5, -11, 1.001, -2.5)
+    draw_polygon4(-14, 1.001, -1.5, -12, 1.001, -1.5, -12, 1.001, -2.5, -14, 1.001, -2.5)
+    draw_polygon4(-17, 1.001, -1.5, -15, 1.001, -1.5, -15, 1.001, -2.5, -17, 1.001, -2.5)
+    draw_polygon4(-20, 1.001, -1.5, -18, 1.001, -1.5, -18, 1.001, -2.5, -20, 1.001, -2.5)
+    draw_polygon4(-23, 1.001, -1.5, -21, 1.001, -1.5, -21, 1.001, -2.5, -23, 1.001, -2.5)
+    ######################################################################################
+    draw_polygon4(-2, 1.001, 5, 0, 1.001, 5, 0, 1.001, 6, -2, 1.001, 6)
+    draw_polygon4(1, 1.001, 5, 3, 1.001, 5, 3, 1.001, 6, 1, 1.001, 6)
+    draw_polygon4(4, 1.001, 5, 6, 1.001, 5, 6, 1.001, 6, 4, 1.001, 6)
+    draw_polygon4(7, 1.001, 5, 9, 1.001, 5, 9, 1.001, 6, 7, 1.001, 6)
+    draw_polygon4(-5, 1.001, 5, -3, 1.001, 5, -3, 1.001, 6, -5, 1.001, 6)
+    draw_polygon4(-8, 1.001, 5, -6, 1.001, 5, -6, 1.001, 6, -8, 1.001, 6)
+    draw_polygon4(-11, 1.001, 5, -9, 1.001, 5, -9, 1.001, 6, -11, 1.001, 6)
+    draw_polygon4(-14, 1.001, 5, -12, 1.001, 5, -12, 1.001, 6, -14, 1.001, 6)
+    draw_polygon4(-17, 1.001, 5, -15, 1.001, 5, -15, 1.001, 6, -17, 1.001, 6)
+    draw_polygon4(-20, 1.001, 5, -18, 1.001, 5, -18, 1.001, 6, -20, 1.001, 6)
+    draw_polygon4(-23, 1.001, 5, -21, 1.001, 5, -21, 1.001, 6, -23, 1.001, 6)
+############################ Inside Road ############################################
+    glColor3f(0, 0, 0)
+    draw_polygon4(-2, -1, 0.5,2, -1, 0.5,2, -1, 1.3,-2, -1, 1.3)
+    draw_polygon4(5, -1, 0.5,8, -1, 0.5,8, -1, 1.3,5, -1, 1.3)
+    draw_polygon4(10, -1, 0.5,15 , -1, 0.5,15 , -1, 1.3,10 , -1, 1.3)
+    draw_polygon4(-9, -1, 0.5,-5, -1, 0.5,-5, -1, 1.3,-9, -1, 1.3)
+    draw_polygon4(-18 , -1, 0.5,-12 , -1, 0.5,-12 , -1, 1.3,-18 , -1, 1.3)
+############################ Trees ###################################################
+    glColor3f(0.3,0.1,0)
+    draw_polygon4(-3,2,-5.1,-2,2,-5.1,-2,5,-5.1,-3,5,-5.1)
+    glColor3f(0.5,0.8,0.1)
+    draw_circle(1.3,2,-2.5,5.5,-5)
+
+    glColor3f(0.3, 0.1, 0)
+    draw_polygon4(3.5, 2, -5.1, 4.5, 2, -5.1, 4.5, 5, -5.1, 3.5, 5, -5.1)
+    glColor3f(0.5, 0.8, 0.1)
+    draw_circle(1.3, 2, 4, 5.5, -5)
+
+    glColor3f(0.3, 0.1, 0)
+    draw_polygon4(-9, 2, -5.1, -8, 2, -5.1, -8, 5, -5.1, -9, 5, -5.1)
+    glColor3f(0.5, 0.8, 0.1)
+    draw_circle(1.3, 2, -8.5, 5.5, -5)
+
+    glColor3f(0.3, 0.1, 0)
+    draw_polygon4(-17, 2, -5.1, -16, 2, -5.1, -16, 5, -5.1, -17, 5, -5.1)
+    glColor3f(0.5, 0.8, 0.1)
+    draw_circle(1.3, 2, -16.5, 5.5, -5)
+
+
+############################ Car #####################################################
+    glLoadIdentity()
+    glTranslate(x,0,0)
+    glColor3f(1,0,0)
+    glScalef(1,0.25,0.5)
+    glutSolidCube(5)
+    glLoadIdentity()
+    glColor3f(0.3,0.4,0.4)
+    glTranslate(x, 0, 0)
+    glTranslate(0,0.25*5,0)
+    glScalef(0.5, 0.25, 0.5)
+    glutSolidCube(5)
+    glLoadIdentity()
+    glColor3f(0,0,1)
+    glTranslate(2.5+x,-2.5*0.25,2.5*0.5)
+    glRotate(angle, 0, 0, 1)
+    glutWireTorus(0.2,0.5,12,8)
+    glLoadIdentity()
+    glColor3f(0, 0, 1)
+    glTranslate(2.5+x, -2.5 * 0.25, -2.5 * 0.5)
+    glRotate(angle, 0, 0, 1)
+    glutWireTorus(0.2, 0.5, 12, 8)
+    glLoadIdentity()
+    glColor3f(0, 0, 1)
+    glTranslate(-2.5+x, -2.5 * 0.25, 2.5 * 0.5)
+    glRotate(angle, 0, 0, 1)
+    glutWireTorus(0.2, 0.5, 12, 8)
+    glLoadIdentity()
+    glColor3f(0, 0, 1)
+    glTranslate(-2.5+x, -2.5 * 0.25, -2.5 * 0.5)
+    glRotate(angle, 0, 0, 1)
+    glutWireTorus(0.2, 0.5, 12, 8)
+    glLoadIdentity()
+    glColor3f(1, 1, 0)
+    glTranslate(2.7 + x, 2.5 * 0.25, 0.9)
+    glutWireSphere(0.25,100,100)
+    glLoadIdentity()
+    glColor3f(1, 1, 0)
+    glTranslate(2.7 + x, 2.5 * 0.25, -0.5)
+    glutWireSphere(0.25, 100, 100)
+
+    if forward:
+        x+=0.02
+        angle -= 0.5
+        if x>5:
+            forward=False
+    else:
+        angle += 0.5
+        x-=0.02
+        if x<-10:
+            x += 0.02
+            forward=True
+##############################################################################################
+    glutSwapBuffers()
+
+glutInit()
+glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
+glutInitWindowSize(500,500)
+glutCreateWindow(b"Moving Car")
+glutDisplayFunc(display)
+glutIdleFunc(display)
+myInit()
+glutMainLoop()
